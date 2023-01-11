@@ -28,7 +28,13 @@ namespace AirLineApi.Controllers
                 string[] arrParams = new string[] { };
                 string[] arrValues = new string[] { };
 
-                string strQuery = @"SELECT * FROM CITY";
+                string strQuery = @"SELECT CityID, Name, Status, 
+                                    (CASE WHEN Status = 'A' THEN 'Activo' WHEN Status = 'I' THEN 'Inactivo' ELSE 'Desconocido' END) AS StatusDes,
+                                    CreatedBy,
+                                    CreationDate,
+                                    ModifiedBy,
+                                    ModificationDate
+                                    FROM CITY";
 
                 ResponseDB dbResponse = objConnection.getRespFromQuery(0, 500, "", strQuery, arrParams, arrValues, "Name", "DataTable");
 

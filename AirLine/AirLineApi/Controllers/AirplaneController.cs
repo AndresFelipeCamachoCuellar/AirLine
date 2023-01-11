@@ -27,7 +27,8 @@ namespace AirLineApi.Controllers
                 string[] arrParams = new string[] { };
                 string[] arrValues = new string[] { };
 
-                string strQuery = @"SELECT AIP.AirPlaneID, AIP.CompanyID, COM.Name AS NAME_COMPANY, AIP.Name AS NAME_AIRPLANE, AIP.Status  
+                string strQuery = @"SELECT AIP.AirPlaneID, AIP.CompanyID, COM.Name AS NAME_COMPANY, AIP.Name AS NAME_AIRPLANE, AIP.Status,
+                                    (CASE WHEN AIP.Status = 'A' THEN 'Activo' WHEN AIP.Status = 'I' THEN 'Inactivo' ELSE 'Desconocido' END) AS StatusDes 
                                     FROM AirPlane AIP 
                                     INNER JOIN Company COM ON AIP.CompanyID = COM.CompanyID";
 

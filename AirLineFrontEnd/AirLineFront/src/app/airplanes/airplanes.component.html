@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5 class="text-primary">Administraión de aviones</h5>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" (click)="open(modalCreate, 1, '')">Crear avion</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card m-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Aerolinea</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col" class="text-center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listCities">
+                                <td>{{item.NAME_AIRPLANE}}</td>
+                                <td>{{item.NAME_COMPANY}}</td>
+                                <td>{{item.StatusDes}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-circle btn-sm" (click)="open(modalCreate, 2, item)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalCreate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ModalTitle}}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="cityForm">
+            <div class="form-group">
+                <label for="inpName">Nombre</label>
+                <input type="text" class="form-control" id="inpName" formControlName="inpName">
+            </div>
+            <div class="form-group">
+                <label for="SlcStatus">Estado</label>
+                <select class="form-control" id="slcStatus" formControlName="slcStatus">
+                  <option value="A">Activo</option>
+                  <option value="I">Inactivo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="slcCompany">Empresa</label>
+                <select class="form-control" id="slcStatus" formControlName="slcCompany">
+                  <option [value]="item.CompanyID" *ngFor="let item of listCompanies">{{item.Name}}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(ModalConfirm)">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #ModalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Alerta</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>{{MessageInfo}}</h5>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
