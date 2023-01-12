@@ -1,21 +1,27 @@
 
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-4">
 	<li [ngbNavItem]="1">
 		<a ngbNavLink>Administración ciudades</a>
 		<ng-template ngbNavContent>
-			<app-cities></app-cities>
+			<app-cities class="mt-2"></app-cities>
 		</ng-template>
 	</li>
 	<li [ngbNavItem]="2">
 		<a ngbNavLink>Administración aerolineas</a>
 		<ng-template ngbNavContent>
-			<app-companies></app-companies>
+			<app-companies class="mt-2"></app-companies>
 		</ng-template>
 	</li>
 	<li [ngbNavItem]="3">
 		<a ngbNavLink>Administración de aviones</a>
 		<ng-template ngbNavContent>
-			<app-airplanes></app-airplanes>
+			<app-airplanes class="mt-2"></app-airplanes>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="4">
+		<a ngbNavLink>Administración de vuelos</a>
+		<ng-template ngbNavContent>
+			<app-itinerarios class="mt-2"></app-itinerarios>
 		</ng-template>
 	</li>
 </ul>

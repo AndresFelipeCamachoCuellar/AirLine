@@ -1,0 +1,168 @@
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5 class="text-primary">Administraión de vuelos</h5>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" (click)="open(modalCreate, 1, '')">Crear vuelo</button>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="card bg-primary m-0">
+                                    <div class="card-body text-center">
+                                        <h6 style="color: white;">{{MostVisitedCity}} es la ciudad mas visitada</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card bg-secondary m-0">
+                                    <div class="card-body text-center">
+                                        <h6 style="color: white;">{{LessVisitedCity}} es la ciudad menos visitada</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <form [formGroup]="StatisticForm">
+                                        <div class="form-group">
+                                            <label for="slcAirplane">cantidad de horas de vuelo por avion</label>
+                                            <select class="form-control" id="slcAirplane" formControlName = "slcAirplane" (change)="getFlownHours()">
+                                              <option [value]="item.AirPlaneID" *ngFor="let item of listAirplanes">{{item.NAME_AIRPLANE}}</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <div class="card bg-success m-2" style="display: none;" id="divStatisticsAirplane">
+                                        <div class="card-body">
+                                            <h6>{{HoursFlown}} Horas de vuelo</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card m-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" class="text-center">Avion</th>
+                                <th scope="col" class="text-center">Origen</th>
+                                <th scope="col" class="text-center">Destino</th>
+                                <th scope="col" class="text-center">Fecha/hora de salida</th>
+                                <th scope="col" class="text-center">Fecha/hora de llegada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listItineraries">
+                                <td class="text-center">{{item.NAME_AIRPLAIN}}</td>
+                                <td class="text-center">{{item.ORIGIN_NAME}}</td>
+                                <td class="text-center">{{item.DESTINY_NAME}}</td>
+                                <td class="text-center">{{item.TAKEOFF_DATE}}</td>
+                                <td class="text-center">{{item.ARRIVAL_DATE}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalCreate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ModalTitle}}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="cityForm">
+            <div class="form-group">
+                <label for="slcAirplane">Avion</label>
+                <select class="form-control" id="slcAirplane" formControlName="slcAirplane">
+                  <option [value]="item.AirPlaneID" *ngFor="let item of listAirplanes">{{item.NAME_AIRPLANE}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="slcOrigin">Origen</label>
+                <select class="form-control" id="slcOrigin" formControlName="slcOrigin">
+                  <option [value]="item.CityID" *ngFor="let item of listCities">{{item.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="slcDestiny">Destino</label>
+                <select class="form-control" id="slcDestiny" formControlName="slcDestiny">
+                  <option [value]="item.CityID" *ngFor="let item of listCities">{{item.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="SlcStatus">Estado</label>
+                <select class="form-control" id="slcStatus" formControlName="slcStatus">
+                  <option value="A">Activo</option>
+                  <option value="I">Inactivo</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                    <label>Fecha de salida</label>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            name="inpTakeOffDate"
+                            ngbDatepicker
+                            formControlName="inpTakeOffDate"
+                            #t="ngbDatepicker"
+                        />
+                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="t.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+                <div class="col-6 text-center">
+                    <label>Hora de salida</label>
+                    <ngb-timepicker formControlName="inpTakeOffTime"></ngb-timepicker>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                    <label>Fecha de llegada</label>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            name="inpArrivalDate"
+                            ngbDatepicker
+                            formControlName="inpArrivalDate"
+                            #a="ngbDatepicker"
+                        />
+                        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="a.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+                <div class="col-6 text-center">
+                    <label>Hora de llegada</label>
+                    <ngb-timepicker formControlName="inpArrivalTime"></ngb-timepicker>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(ModalConfirm)">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #ModalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Alerta</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <h5>{{MessageInfo}}</h5>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>

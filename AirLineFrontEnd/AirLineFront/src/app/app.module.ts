@@ -10,6 +10,7 @@ import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesComponent } from './companies/companies.component';
 import { AirplanesComponent } from './airplanes/airplanes.component';
+import { ItinerariosComponent } from './itinerarios/itinerarios.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AirplanesComponent } from './airplanes/airplanes.component';
     MainPageComponent,
     CitiesComponent,
     CompaniesComponent,
-    AirplanesComponent
+    AirplanesComponent,
+    ItinerariosComponent
   ],
   imports: [
     BrowserModule,

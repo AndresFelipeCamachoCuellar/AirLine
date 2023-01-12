@@ -31,7 +31,9 @@ namespace AirLineApi.Controllers
                 string strQuery = @"SELECT 
                                     	FLI.FlyIntineraryID, FLI.AirPlaneID, AIP.Name AS NAME_AIRPLAIN, 
                                     	FLI.Origin, ORI.Name AS ORIGIN_NAME, FLI.Destiny, DEST.Name AS DESTINY_NAME,
-                                    	FLI.FlyDate, FLI.TakeOffTime, FLI.ArrivalDate, FLI.ArrivalTime, FLI.Status
+                                    	FLI.FlyDate, FLI.TakeOffTime, FLI.ArrivalDate, FLI.ArrivalTime, FLI.Status,
+										CAST(CONCAT(CAST(FLI.FlyDate as nvarchar), ' ', CONVERT(nvarchar, FLI.TakeOffTime, 8)) AS datetime) AS TAKEOFF_DATE,
+										CAST(CONCAT(CAST(FLI.ArrivalDate as nvarchar), ' ', CONVERT(nvarchar, FLI.ArrivalTime, 8)) AS datetime) AS ARRIVAL_DATE
                                     FROM FlyIntinerary FLI
                                     INNER JOIN AirPlane AIP ON FLI.AirPlaneID = AIP.AirPlaneID
                                     LEFT JOIN City ORI ON FLI.Origin = ORI.CityID
